@@ -44,6 +44,24 @@ $announcements = [
     ]
 ];
 
+/**
+ * Преобразование для форматирования числа и добавления знака рубля
+ *
+ * @param float $num число, которое преобразуем
+ * @return string
+ */
+function addRubleStyle (float $num): string
+{
+    $num = ceil($num);
+    if ($num <= 1000) {
+
+        return strval($num) . ' <b class="rub">р</b>';
+    }
+    elseif ($num > 1000) {
+
+        return number_format($num) . ' <b class="rub">р</b>';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -97,7 +115,7 @@ $announcements = [
         <ul class="promo__list">
             <?php foreach ($categories as $category): ?>
                 <li class="promo__item promo__item--boards">
-                    <a class="promo__link" href="pages/all-lots.html"><?=$category ?></a>
+                    <a class="promo__link" href="pages/all-lots.html"><?= $category ?></a>
                 </li>
             <?php endforeach ?>
             <!--заполните этот список из массива категорий-->
@@ -111,15 +129,15 @@ $announcements = [
             <?php foreach ($announcements as $announcement): ?>
                 <li class="lots__item lot">
                     <div class="lot__image">
-                        <img src="<?=$announcement['url'] ?>" width="350" height="260" alt="">
+                        <img src="<?= $announcement['url'] ?>" width="350" height="260" alt="">
                     </div>
                     <div class="lot__info">
-                        <span class="lot__category"><?=$announcement['category'] ?></span>
-                        <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$announcement['name'] ?></a></h3>
+                        <span class="lot__category"><?= $announcement['category'] ?></span>
+                        <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?= $announcement['name'] ?></a></h3>
                         <div class="lot__state">
                             <div class="lot__rate">
                                 <span class="lot__amount">Стартовая цена</span>
-                                <span class="lot__cost"><?=$announcement['price'] ?><b class="rub">р</b></span>
+                                <span class="lot__cost"><?= addRubleStyle($announcement['price']) ?></span>
                             </div>
                             <div class="lot__timer timer">
                                 12:23
@@ -139,7 +157,7 @@ $announcements = [
         <ul class="nav__list container">
             <?php foreach ($categories as $category): ?>
                 <li class="nav__item">
-                    <a href="pages/all-lots.html"><?=$category ?></a>
+                    <a href="pages/all-lots.html"><?= $category ?></a>
                 </li>
             <?php endforeach ?>
             <!--заполните этот список из массива категорий-->
